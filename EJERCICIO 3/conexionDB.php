@@ -2,8 +2,46 @@
 
     require '../consfigDB.php';
 
-    $conexion = new mysqli(SERVIDROR,USUARIO,PASWORD,BBDD);
+  $conexion = new mysqli(SERVIDROR,USUARIO,PASWORD); // no le paso la bd porque la voy a crear aqui 
 
+
+    if ($conexion->connect_error) { // esto comprueba que si la base de datos no existe la cree despues 
+
+        die("la base de datos no existe");
+
+    }
+    
+    
+    ///genero las tablas si no existen
+    $sql = "CREATE DATABASE IF NOT EXISTS 2daw"; //si no existe la base de datos la crea
+
+        /* echo $sql; */
+
+        $conexion->query($sql);
+        $conexion->select_db('2daw'); 
+    
+
+        $sql='CREATE TABLE IF NOT EXISTS paises( 
+            idPais tinyint AUTO_INCREMENT PRIMARY KEY,
+            pais varchar(50) unique
+        );';
+
+        /* echo $sql; */
+
+        $conexion->query($sql);
+
+         $sql='CREATE TABLE IF NOT EXISTS usuarios(
+            idUsuarios tinyint AUTO_INCREMENT PRIMARY KEY,
+            nombre varchar(50),
+            clave varchar(50),
+            pais varchar(50)
+        );';
+        $conexion->query($sql);  
+    
+
+
+
+        
     //INSERCION MASIVA DE DATOS
     
     $array =['España',
@@ -17,7 +55,8 @@
             'México',
             'Argentina'];
 
-
+    $sql='CREATE DATABASE 2daw';
+    
 
     for($i=0;$i<sizeof($array);$i++){
          $sql=("INSERT INTO paises(pais) VALUES ('".$array[$i]."')");
