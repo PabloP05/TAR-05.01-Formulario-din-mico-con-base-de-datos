@@ -6,11 +6,10 @@
 
     $sql = "SELECT * FROM paises";
 
-    $resultado = $conexion->query($sql);
+    $resultado = $conexion->quey($sql);
 
-    foreach ($resultado->fetch_array() as $key => $value) { // se debe usar el fetch_assoc() porque saca el arry asociativo
-        echo $value.'<br>';
-        echo $key.'<br>';
+    foreach ($resultado->fetch_array() as $key => $value) {
+        echo $value;
     }
 
 ?>

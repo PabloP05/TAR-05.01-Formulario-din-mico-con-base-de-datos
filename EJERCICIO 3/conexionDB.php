@@ -38,7 +38,20 @@
         );';
         $conexion->query($sql);  
     
+        $sql = 'CREATE TABLE IF NOT EXISTS checkbox(
+            idCheckbox tinyint PRIMARY KEY AUTO_INCREMENT,
+            checkbox varchar(50)
+        )';
+        $conexion->query($sql);
 
+        $sql = "CREATE TABLE IF NOT EXISTS preferenciasUsuarios (
+            idUsuario TINYINT,
+            opcion VARCHAR(50),
+            CONSTRAINT fk_usuarios FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuarios),
+            CONSTRAINT pk_dual PRIMARY KEY (idUsuario,opcion) 
+            );";
+
+        $conexion->query($sql);
 
 
         
@@ -55,7 +68,12 @@
             'México',
             'Argentina'];
 
-    $sql='CREATE DATABASE 2daw';
+    $arrayCheck = [
+        'reciclaje',
+        'contaminacion',
+        'zonas industriales',
+        'vehiculos electricos'
+    ];
     
 
     for($i=0;$i<sizeof($array);$i++){
@@ -68,6 +86,16 @@
 
     }
     
+    for($i=0;$i<sizeof($arrayCheck);$i++){
+
+        $sql = "INSERT INTO checkbox(checkbox) VALUES ('".$arrayCheck[$i]."')";
+
+         $conexion->query($sql);
+        if($conexion->affected_rows>0)
+            echo 'fila insertada <br>'; 
+
+    }
+
     $conexion->close();
 
 ?>
