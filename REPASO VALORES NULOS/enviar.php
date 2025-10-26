@@ -8,7 +8,7 @@
     $conexion = new mysqli(SERVIDROR,USUARIO,PASWORD,BBDD);
 //para sacar el ultimo id de la bd se utiliza insert_id
 
-        if(!empty($_POST['correo'])){
+        if(!empty($_POST['correo'])){ //valido que si el usuario no agrega un correo no se envie el valor vacio a la bd 
             $sql = "INSERT INTO usuarios(nombre,clave,pais, correo) VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['paises']."','".$_POST['correo']."')";
         }else{
             $sql = "INSERT INTO usuarios(nombre,clave,pais) VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['paises']."')";
