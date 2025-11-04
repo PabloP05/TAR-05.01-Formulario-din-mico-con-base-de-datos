@@ -16,7 +16,7 @@
     $sql = "CREATE DATABASE IF NOT EXISTS 2daw"; //si no existe la base de datos la crea
 
         /* echo $sql; */
-
+    try{
         $conexion->query($sql);
         $conexion->select_db('2daw'); 
     
@@ -54,12 +54,15 @@
         $conexion->query($sql); 
         $sql = 'ALTER TABLE usuarios 
                 MODIFY correo varchar(50) DEFAULT NULL';
-            
-
         $conexion->query($sql);
 
+        $sql = "ALTER TABLE usuarios 
+                ADD CONSTRAINT unico_correo UNIQUE(correo);"
 
-        
+        $conexion->query($sql);
+    }catch(mysqli_sql_exception $e){
+        echo $e->getMessage();
+    }
     //INSERCION MASIVA DE DATOS
     
     $array =['España',

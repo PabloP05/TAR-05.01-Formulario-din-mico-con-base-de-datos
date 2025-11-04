@@ -5,9 +5,13 @@
     $cargar = new rellenarSelect();
 
     //llamo a la funcion que ejecuta la consulta en la base de datos y una vez hecho esto, lo guardo en un array
-    $arrayPais = $cargar->cargarDatosSelect();
-    $arrayCheck = $cargar->cargarCheckbox();
-    $cargar->cerrarConexion();
+    try{
+        $arrayPais = $cargar->cargarDatosSelect();
+        $arrayCheck = $cargar->cargarCheckbox();
+        $cargar->cerrarConexion();
+    }catch(mysqli_sql_exception $e){
+        echo $e->getMessage();
+    }
 ?>
 
 

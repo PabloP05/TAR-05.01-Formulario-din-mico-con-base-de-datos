@@ -14,8 +14,8 @@
             $sql = "INSERT INTO usuarios(nombre,clave,pais) VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['paises']."')";
         }
 
-
-        
+//APLICACION DE LAS EXCEPCIONES DE VALIDACION
+        try{
             if(!empty($_POST['usuario']) && !empty($_POST['password'])){
                 $conexion->query($sql);
             }
@@ -31,5 +31,12 @@
                 }
 
             }
+        }catch(mysqli_sql_exception $e){
+            if($e->getCode()==1062){
+                echo "correo duplicado";
+            }else{
+                echo $e->getMessage();
+            }
+        }
 
 ?>
